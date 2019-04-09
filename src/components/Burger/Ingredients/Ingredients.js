@@ -1,5 +1,5 @@
 import React, { Component} from 'react';
-import ingredientClasses from './Ingredients.css';
+import classes from './Ingredients.css';
 import PropTypes from 'prop-types';
 
 // this is a dumb component(not a container), but we use the class 
@@ -10,32 +10,32 @@ class Ingredient extends Component {
 
         switch(this.props.type) {
             case ('bread-bottom'):
-                ingredient = <div className={ingredientClasses.BreadBottom}></div>;
+                ingredient = <div className={classes.BreadBottom}></div>;
                 break;
     
             case ('bread-top'):
                 ingredient = (
-                    <div className={ingredientClasses.BreadTop}>
-                        <div className={ingredientClasses.Seeds1}></div>
-                        <div className={ingredientClasses.Seeds2}></div>
+                    <div className={classes.BreadTop}>
+                        <div className={classes.Seeds1}></div>
+                        <div className={classes.Seeds2}></div>
                     </div>
                 );
                 break;
     
             case ('meat'):
-                ingredient = <div className={ingredientClasses.Meat}></div>;
+                ingredient = <div className={classes.Meat}></div>;
                 break;
     
             case ('cheese'):
-                ingredient = <div className={ingredientClasses.Cheese}></div>;
+                ingredient = <div className={classes.Cheese}></div>;
                 break;
             
             case ('salad'):
-                ingredient = <div className={ingredientClasses.Salad}></div>;
+                ingredient = <div className={classes.Salad}></div>;
                 break;
     
             case ('bacon'):
-                ingredient = <div className={ingredientClasses.Bacon}></div>;
+                ingredient = <div className={classes.Bacon}></div>;
                 break;
     
             default: ingredient = null;       

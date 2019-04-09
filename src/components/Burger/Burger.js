@@ -1,5 +1,5 @@
 import React from 'react';
-import burgerClasses from './Burger.css';
+import classes from './Burger.css';
 import Ingredients from './Ingredients/Ingredients';
 import Ingredient from './Ingredients/Ingredients';
 
@@ -20,7 +20,7 @@ const burger = props => {
         }
     console.log(ingredientList, ingredientList.length);
     return (
-        <div className={burgerClasses.Burger}>
+        <div className={classes.Burger}>
             <Ingredients type="bread-top" />
             {ingredientList}
             <Ingredients type="bread-bottom" />
