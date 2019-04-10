@@ -62,17 +62,24 @@ class BurgerBuilder extends Component {
             const updatedIngredients = this.updateIng(type, false);
             this.updateReadyState(updatedIngredients);
         }
-        
     }
 
     purchaseHandler = () => {
         this.setState({purchasing: true});
     }
+    
+    cancelPurchaseHandler = () => {
+        this.setState({purchasing: false})
+    }
+
 
     render() {
         return (
             <>
-                <Modal show={this.state.purchasing}>
+                <Modal 
+                    show={this.state.purchasing}
+                    modalClose={this.cancelPurchaseHandler}
+                >
                     <OrderSummary ingredients={this.state.ingredients}/>
                 </Modal>            
                 <Burger ingredients={this.state.ingredients}/>
