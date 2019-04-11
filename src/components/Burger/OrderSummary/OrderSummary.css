@@ -4,6 +4,11 @@
 
 ul {
     list-style: none;
+    text-align: left;
+}
+
+li {
+    font-style: italic;
 }
 
 button {
