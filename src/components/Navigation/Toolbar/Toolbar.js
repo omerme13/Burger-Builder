@@ -1,15 +1,14 @@
 import React from 'react';
 import classes from './Toolbar.css';
 import Logo from '../../Logo/Logo';
+import NavItems from '../NavItems/NavItems';
 
 const toolbar = props => (
     <header className={classes.Toolbar}>
-        <div>menu</div>
-        <Logo />
+        <ion-icon name="menu"></ion-icon>
+        <Logo height="70%"/>
         <nav>
-            <ul>
-                ...
-            </ul>
+            <NavItems />
         </nav>
     </header>
 );

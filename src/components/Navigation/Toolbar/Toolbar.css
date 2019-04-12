@@ -13,6 +13,11 @@
     z-index: 90;
 }
 
+.Toolbar ion-icon {
+    font-size: 120%;
+    cursor: pointer;
+}
+
 nav {
     height: 100%;
 }

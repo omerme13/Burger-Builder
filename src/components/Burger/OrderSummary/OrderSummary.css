@@ -2,15 +2,11 @@
     font-size: 125%;
 }
 
-ul {
+.OrderSummary ul {
     list-style: none;
     text-align: left;
 }
 
-li {
+.OrderSummary li {
     font-style: italic;
-}
-
-button {
-    color: blueviolet;
 }
