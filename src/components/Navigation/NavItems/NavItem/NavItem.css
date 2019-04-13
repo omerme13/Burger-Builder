@@ -1,15 +1,14 @@
 .NavItem {
-    margin: 0;
-    display: flex;
-    height: 100%;
     display: flex;
     align-items: center;
+    /* height: 100%; */
 }
 
 .NavItem a {
     text-decoration: none;
     color: rgb(168, 87, 87);
-    padding: 15px;
+    padding: 16px;
+    margin-top: 6.5px;
     border-bottom: 4px solid transparent; /*just so when the color appears 
     there won't be any movement in the postion */
     transition: 0.2s all;
@@ -22,12 +21,20 @@
     background-color: rgba(0, 0, 0, 0.1);
 }
 
-@media (min-width: 500px) {
+@media (max-width: 500px) {
     .NavItem {
-        margin: 10px 0;
-        display: flex;
         width: 100%;
-        display: block;
-        align-items: center;
+    }
+
+    .NavItem a {
+        width: 100%;
+        padding: 12px;
+    } 
+
+    .NavItem a:hover,
+    .NavItem a:active,
+    .NavItem a.active { 
+        border: transparent;
+        color: black;
     }
 }

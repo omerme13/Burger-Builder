@@ -1,5 +1,5 @@
 .Toolbar {
-    height: 55px;
+    height: 56px;
     width: 100%;
     position: fixed;
     top: 0;
@@ -8,18 +8,28 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 20px;
+    padding: 0 3px 0 20px;
     box-sizing: border-box;
     z-index: 90;
 }
 
-.Toolbar ion-icon {
+.MobileOnly {
     font-size: 120%;
     cursor: pointer;
 }
 
-nav {
+@media (min-width: 500px) {
+    .MobileOnly {
+        display: none;
+    }
+}
+
+.Toolbar nav {
     height: 100%;
 }
 
-@media
+@media (max-width: 500px) {
+    .DesktopOnly {
+        display: none;
+    }
+}

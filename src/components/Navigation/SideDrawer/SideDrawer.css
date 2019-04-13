@@ -9,13 +9,12 @@
     background-color: #fff;
     padding: 30px 15px;
     transition: transform 0.3s ease-out;
+} 
+
+.Logo {
+    height: 12%;
 }
 
-@media (min-width: 500px) {
-    .SideDrawer {
-        display: none;
-    }
-}
 
 .Open {
     transform: translateX(0);
@@ -24,3 +23,9 @@
 .Close {
     transform: translateX(-100%);
 }
+
+/* @media (min-width: 500px) {
+    .SideDrawer {
+        display: none;
+    }
+} */
