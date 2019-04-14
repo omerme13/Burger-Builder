@@ -6,7 +6,7 @@
 
 .NavItem a {
     text-decoration: none;
-    color: rgb(168, 87, 87);
+    color: #000;
     padding: 16px;
     margin-top: 6.5px;
     border-bottom: 4px solid transparent; /*just so when the color appears 
@@ -18,7 +18,12 @@
 .NavItem a:active,
 .NavItem a.active { /*last one means: anchor element with the class of active*/
     border-bottom: 4px solid brown;
+    color: rgb(168, 87, 87);
     background-color: rgba(0, 0, 0, 0.1);
+}
+
+.NavItem a:hover {
+    background-color: transparent;
 }
 
 @media (max-width: 500px) {
@@ -35,6 +40,7 @@
     .NavItem a:active,
     .NavItem a.active { 
         border: transparent;
-        color: black;
+        color: rgb(168, 87, 87);
+
     }
 }
