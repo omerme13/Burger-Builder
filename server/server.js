@@ -1,12 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const knex = require('knex');
+const cors = require('cors');
 
 const db = knex({
     client: 'pg',
     connection: {
         host: '127.0.0.1',
-        user: 'omer',
+        user: 'postgres',
         password: '',
         database: 'burgerbuilder'
     }
@@ -16,6 +17,7 @@ db.select('*').from('orders')
     .then(data => console.log(data))
 
 const app = express();
+app.use(cors());
 
 app.post('/orders', (req, res) => {
     db('orders').insert({
@@ -24,7 +26,11 @@ app.post('/orders', (req, res) => {
         bacon: 1,
         salad: 1
     })
-    .then(order => console.log(order))
+    .then(order => {
+        console.log(order);
+        res.json('success');
+    });
+    
 })
 
 app.post('/', (req, res) => {
