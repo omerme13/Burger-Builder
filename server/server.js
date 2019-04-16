@@ -7,40 +7,31 @@ const db = knex({
     client: 'pg',
     connection: {
         host: '127.0.0.1',
-        user: 'postgres',
+        user: 'omer',
         password: '',
         database: 'burgerbuilder'
     }
 });
 
-db.select('*').from('orders')
-    .then(data => console.log(data))
-
 const app = express();
 app.use(cors());
+app.use(bodyParser.json());
 
 app.post('/orders', (req, res) => {
+    const {meat, cheese, bacon, salad} = req.body;
     db('orders').insert({
-        meat: 2,
-        cheese: 2,
-        bacon: 1,
-        salad: 1
+        meat: meat,
+        cheese: cheese,
+        bacon: bacon,
+        salad: salad,
+        time: new Date()
     })
-    .then(order => {
-        console.log(order);
-        res.json('success');
-    });
+    .then(response => res.json(response));
     
-})
+});
 
-app.post('/', (req, res) => {
-    const order = {
-        meat: 2,
-        cheese: 2,
-        bacon: 1,
-        salad: 1
-    }
-    res.json(order);
-})
+// Checking...
+db.select('*').from('orders')
+    .then(data => console.log(data));
 
 app.listen(3000);
