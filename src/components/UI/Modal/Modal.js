@@ -7,7 +7,8 @@ should/will component update. the reason I used it is to improve the app's
 performance so it won't render redundant things */
 class Modal extends Component {
     shouldComponentUpdate(nextProps, nextState) {
-        return this.props.show !== nextProps.show;
+        return (this.props.show !== nextProps.show) 
+        || (this.props.children !== nextProps.children);
     }
 
     componentWillUpdate() {

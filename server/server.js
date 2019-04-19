@@ -18,12 +18,13 @@ app.use(cors());
 app.use(bodyParser.json());
 
 app.post('/orders', (req, res) => {
-    const {meat, cheese, bacon, salad} = req.body;
+    const {meat, cheese, bacon, salad, price} = req.body;
     db('orders').insert({
         meat: meat,
         cheese: cheese,
         bacon: bacon,
         salad: salad,
+        price: price,
         time: new Date()
     })
     .then(response => res.json(response));
