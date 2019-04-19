@@ -1,3 +1,7 @@
+/* linux: user = omer, password = 1234
+    windows: user = postgres, password = '' */
+
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const knex = require('knex');
@@ -7,8 +11,8 @@ const db = knex({
     client: 'pg',
     connection: {
         host: '127.0.0.1',
-        user: 'omer',
-        password: '1234',
+        user: 'postgres',
+        password: '',
         database: 'burgerbuilder'
     }
 });
