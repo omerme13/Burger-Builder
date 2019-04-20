@@ -21,7 +21,7 @@ class Modal extends Component {
                 <Backdrop show={this.props.show} clicked={this.props.modalClose}/>
                 <div 
                     className={classes.Modal}
-                    style={{transform: this.props.show ? 'translateY(0)' : 'translateY(-200%)'}}
+                    style={{transform: this.props.show ? 'translateY(0)' : 'translateY(-200vh)'}}
                 >
                     {this.props.children}
                 </div>

@@ -1,18 +1,24 @@
-/* linux: user = omer, password = 1234
-    windows: user = postgres, password = '' */
-
-
 const express = require('express');
 const bodyParser = require('body-parser');
 const knex = require('knex');
 const cors = require('cors');
 
+// linux: user = omer, password = 1234
+// windows: user = postgres, password = '' 
+
+let user = 'omer';
+let password = '1234';
+if (process.platform === 'win32') {
+    user = 'postgres';
+    password = '';  
+}    
+
 const db = knex({
     client: 'pg',
     connection: {
         host: '127.0.0.1',
-        user: 'postgres',
-        password: '',
+        user: user,
+        password: password,
         database: 'burgerbuilder'
     }
 });
@@ -31,9 +37,17 @@ app.post('/orders', (req, res) => {
         price: price,
         time: new Date()
     })
-    .then(response => res.json(response));
-    
+    .then(response => res.json(response))
+    .catch(err => res.status(400).json('error getting orders'));
 });
+
+app.get('/ingredients', (req, res) => {
+    db.select('*').from('ingredients')
+    .then(response => res.json(response))
+    .catch(err => res.status(400).json('error getting ingredients'));
+});
+
+
 
 // Checking...
 db.select('*').from('orders')
