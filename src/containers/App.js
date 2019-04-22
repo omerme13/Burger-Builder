@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
+import { Route } from 'react-router-dom';
 import classes from './App.css';
 import Layout from './Layout/Layout';
-import BurgerBuilder from '../containers/BurgerBuilder/BurgerBuilder';
+import BurgerBuilder from './BurgerBuilder/BurgerBuilder';
+import Checkout from './Checkout/Checkout';
 
 class App extends Component {
     render() {
@@ -9,7 +11,8 @@ class App extends Component {
             <div className={classes.App}>
                 
                 <Layout>
-                    <BurgerBuilder />
+                    <Route path="/" exact component={BurgerBuilder} /> 
+                    <Route path="/checkout" component={Checkout} />
                 </Layout>
             </div>
         );
