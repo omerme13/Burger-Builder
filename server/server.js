@@ -47,6 +47,12 @@ app.get('/ingredients', (req, res) => {
     .catch(err => res.status(400).json('error getting ingredients'));
 });
 
+app.get('/orders', (req, res) => {
+    db.select('*').from('orders')
+    .then(response => res.json(response))
+    .catch(err => res.status(400).json('error getting orders'));
+});
+
 
 
 // Checking...

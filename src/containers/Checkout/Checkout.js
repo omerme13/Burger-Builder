@@ -5,22 +5,26 @@ import ContactData from './ContactData/ContactData';
 
 class Checkout extends Component {
     state = {
-        ingredients: {
-            meat: 1,
-            cheese: 1,
-            bacon: 1,
-            salad: 1
-        }
+        ingredients: null,
+        totalPrice: 0
     }
 
-    componentDidMount() {
+    componentWillMount() {
         const query = new URLSearchParams(this.props.location.search);
         const ingredients = {};
+        let price = 0;
 
-        for (let param of query.entries()) {
-            ingredients[param[0]] = +param[1];
+        for (let params of query.entries()) {
+            if (params[0] === 'price') {
+                price = params[1];
+                break; // i used break to prevent: ingredients[params[0]] = ingredients[price]
+            }
+            ingredients[params[0]] = +params[1];
         }   
-        this.setState({ingredients: ingredients});
+        this.setState({
+            ingredients: ingredients,
+            totalPrice: price
+        });
     }
 
 
@@ -43,8 +47,15 @@ class Checkout extends Component {
                     checkoutCancel={this.checkoutCancelHandler}
                 />    
                 <Route 
-                    path={this.props.match.path + 'contact-data'}
-                    component={ContactData}
+                    path={this.props.match.path + '/contact-data'}
+                    render={() => (
+                        <ContactData 
+                            ingredients={this.state.ingredients}
+                            price={this.state.totalPrice}
+                            {...this.props} //added props so i can access the history prop on ContactData
+                        />
+                    )}
+                    // i use 'render' instead of 'component' because i want to pass on props
                 />
             </div>
         );
