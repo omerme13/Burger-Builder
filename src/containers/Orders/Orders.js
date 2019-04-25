@@ -12,31 +12,36 @@ class Orders extends Component {
     componentDidMount() {
         axios.get('/orders')
             .then(res => {
-                // this.setState({isLoading: false})
                 const fetchedOrders = [];
+
                 for (let key in res.data) {
-                    fetchedOrders.push({
-                        ...res.data[key],
-                        id: key
-                    });
+                    fetchedOrders.push({...res.data[key]});
                 }
-                console.log(fetchedOrders)
+                this.setState({isLoading: false, orders: fetchedOrders})
             })
             .catch(err => {
-                this.setState({isLoading: false, orders: this.fetchedOrders})
+                this.setState({isLoading: false})
             })
     }    
 
     render() {
-
         return (
             <div>
-                <Order />
-                <Order />
+                {this.state.orders.map(order => (
+                    <Order 
+                        key={order.id}
+                        ingredients={{
+                            meat: order.meat,
+                            cheese: order.cheese,
+                            salad: order.salad,
+                            bacon: order.bacon
+                        }}
+                        price={+order.price}
+                    />
+                ))}
             </div>
         );
     }
-
 }
 
 export default withError(Orders, axios);

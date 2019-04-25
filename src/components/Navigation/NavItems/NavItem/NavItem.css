@@ -14,7 +14,6 @@
     transition: 0.2s all;
 } 
 
-.NavItem a:hover,
 .NavItem a:active,
 .NavItem a.active { /*last one means: anchor element with the class of active*/
     border-bottom: 4px solid brown;
@@ -23,7 +22,7 @@
 }
 
 .NavItem a:hover {
-    background-color: transparent;
+    color: rgb(168, 87, 87);
 }
 
 @media (max-width: 500px) {
@@ -36,11 +35,8 @@
         padding: 12px;
     } 
 
-    .NavItem a:hover,
     .NavItem a:active,
     .NavItem a.active { 
         border: transparent;
-        color: rgb(168, 87, 87);
-
     }
 }
