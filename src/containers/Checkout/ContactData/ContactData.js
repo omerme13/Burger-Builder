@@ -6,13 +6,52 @@ import classes from './ContactData.css';
 import axios from '../../../axios-orders';
 
 class ContactData extends Component {
+
+    createInput = (kind, config, value) => {
+        let configuration = {
+                type: config.type,
+                placeholder: config.placeholder
+        }
+    
+        if (kind === 'select') {
+            const options = [];
+
+            config.options.forEach((_, i) => {
+                options.push({
+                    value: config.options[i].value, 
+                    displayValue: config.options[i].displayValue
+                })
+            })
+
+
+            configuration = {
+                options
+            }   
+        }
+        console.log(configuration)
+
+        return (
+            {   
+                kind: kind,
+                value: value,
+                config: configuration
+            }
+        )
+    }
+
     state = {
-        name: '',
-        email: '',
-        adress: {
-            street: '',
-            postalCode: ''
-        }, 
+        orderForm: {
+            name: this.createInput('input', {type: 'text', placeholder: 'Your Name'},''),
+            city: this.createInput('input', {type: 'text', placeholder: 'City'},''),
+            street: this.createInput('input', {type: 'text', placeholder: 'Street'},''),
+            email: this.createInput('input', {type: 'email', placeholder: 'Your Email'} ,''),
+            deliveryMethod: this.createInput('select',{
+                    options: [
+                        {value: 'cheapest', displayValue: 'Cheapest'},
+                        {value: 'fast', displayValue: 'Fast'}
+                    ]
+            }, '')
+        },
         isLoading: false
     }
 
@@ -42,11 +81,24 @@ class ContactData extends Component {
     }
 
     render() {
+        const formElements = [];
+        for (let key in this.state.orderForm) {
+            formElements.push({
+                ...this.state.orderForm[key]
+            })
+        }
+        
+        const elementsList = formElements.map((elem) =>(
+            <Input 
+                key={elem.config.placeholder}
+                kind={elem.kind}
+                config={elem.config}
+                value={elem.value}
+            />
+        ))
+
         let form = <form>
-            <Input type="text" name="name" placeholder="Your Name" />
-            <Input type="email" name="email" placeholder="Your Email" />
-            <Input type="text" name="street" placeholder="Street" />
-            <Input type="text" name="postal" placeholder="Postal Code" />
+            {elementsList}
             <Button type="Success" clicked={this.placeOrderHandler}>ORDER</Button>
         </form>
 
