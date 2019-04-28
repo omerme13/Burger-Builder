@@ -35,6 +35,18 @@ app.post('/orders', (req, res) => {
         bacon: bacon,
         salad: salad,
         price: price,
+        // TODO userId: userId  
+        deliveryMethod: req.body.deliveryMethod.value,
+        time: new Date()
+    })
+    .then(response => res.json(response))
+    .catch(err => res.status(400).json('error getting orders'));
+
+    db('users').insert({
+        name: name,
+        city: city,
+        street: street,
+        email: email,
         time: new Date()
     })
     .then(response => res.json(response))
