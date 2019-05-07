@@ -30,7 +30,7 @@ app.use(bodyParser.json());
 // SETUP
 const initialIngredients = {
     salad: 0, 
-    meat: 1, 
+    meat: 0, 
     cheese: 0, 
     bacon: 0 
 }

@@ -1,9 +1,13 @@
 import React, { Component } from 'react';
+import {connect} from 'react-redux';
+
 import Button from '../../../components/UI/Button/Button'; 
 import Spinner from '../../../components/UI/Spinner/Spinner';
 import Input from '../../../components/UI/Form/Input/Input';
 import classes from './ContactData.css';
 import axios from '../../../axios-orders';
+import withError from '../../../HOC/withErrorHandler/withErrorHandler';
+import * as actions from '../../../store/actions/index';
 
 const createInput = (kind, config, value, validation) => {
     let configuration = {
@@ -82,13 +86,11 @@ class ContactData extends Component {
             email: inputs.email,
             deliveryMethod: inputs.deliveryMethod
         },
-        isLoading: false, 
         isFormValid: false
     }
 
     placeOrderHandler = (e) => {
-        this.setState({isLoading: true});
-        const {salad, bacon, cheese, meat} = this.props.ingredients;
+        const {salad, bacon, cheese, meat} = this.props.ing;
         const {name, city, street, email, deliveryMethod} = this.state.orderForm;
         const formData = {};
 
@@ -96,10 +98,7 @@ class ContactData extends Component {
             formData[key] = this.state.orderForm[key].value;
         }
 
-        axios({
-            method: 'post',
-            url: '/orders',
-            data: {
+        const data = {
                 salad: salad,
                 bacon: bacon,
                 cheese: cheese,
@@ -110,13 +109,8 @@ class ContactData extends Component {
                 street: street,
                 email: email,
                 deliveryMethod: deliveryMethod
-            }
-        })
-        .then(res => {
-            setTimeout(() => this.setState({isLoading: false}), 500); 
-            this.props.history.push('/');
-        })
-        .catch(err => this.setState({isLoading: false}));
+        }
+        this.props.onOrder(data)
         e.preventDefault();
     }
 
@@ -190,7 +184,7 @@ class ContactData extends Component {
             </Button>
         </form>
 
-        if (this.state.isLoading) {
+        if (this.props.isLoading) {
             form = <Spinner />
         }
 
@@ -203,4 +197,18 @@ class ContactData extends Component {
     }
 }
 
-export default ContactData;
+const mapStateToProps = state => {
+    return {
+        ing: state.burgerBuilder.ingredients,
+        price: state.burgerBuilder.totalPrice,
+        isLoading: state.order.isLoading
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        onOrder: (data) => dispatch(actions.purchaseBurger(data))
+    };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(withError(ContactData, axios));
