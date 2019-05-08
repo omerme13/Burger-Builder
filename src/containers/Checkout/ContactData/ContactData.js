@@ -162,27 +162,28 @@ class ContactData extends Component {
             })
         }
         
-        const elementsList = formElements.map((elem) =>(
+        const elementsList = formElements.map((elem) => (
             <Input 
                 key={elem.id}
                 kind={elem.data.kind}
                 config={elem.data.config}
                 value={elem.data.value}
                 isValid={elem.data.isValid}
-                // shouldValidate={elem.data.validation}
                 touched={elem.data.touched}
                 changed={(e) => this.inputChangeHandler(e, elem.id)}
             />
         ))
 
-        let form = <form onSubmit={this.placeOrderHandler}>
-            {elementsList}
-            <Button 
-                type="Success" 
-                disabled={!this.state.isFormValid}>
-                ORDER
-            </Button>
-        </form>
+        let form = (
+            <form onSubmit={this.placeOrderHandler}>
+                {elementsList}
+                <Button 
+                    type="Success" 
+                    disabled={!this.state.isFormValid}>
+                    ORDER
+                </Button>
+            </form>
+        );
 
         if (this.props.isLoading) {
             form = <Spinner />

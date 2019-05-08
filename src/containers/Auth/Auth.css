@@ -1,16 +1,16 @@
-.ContactData {
+.Auth {
     width: 80%;
     max-width: 500px;
     margin: 20px auto;
 }
 
-.ContactData form {
+.Auth form {
     display: flex;
     flex-direction: column;
     padding: 10px;
 }
 
-.ContactData input {
+.Auth input {
     padding: 8px;
     margin: 5px;
 }    
