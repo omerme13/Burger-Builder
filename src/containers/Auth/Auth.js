@@ -39,7 +39,8 @@ class Auth extends Component {
             password: inputs.password,
 
         },
-        isFormValid: false
+        isFormValid: false, 
+        isRegister: true
     }
 
     inputChangeHandler = (e, inputId) => {
@@ -85,7 +86,11 @@ class Auth extends Component {
         const {email, password} = this.state.authForm;
 
         e.preventDefault();
-        this.props.onAuth(email, password);
+        this.props.onAuth(email, password, this.state.isRegister);
+    }
+
+    authModeChangeHandler = () => {
+        this.setState({isRegister: !this.state.isRegister})
     }
 
     render() {
@@ -110,14 +115,21 @@ class Auth extends Component {
         ))
 
         let form = (
-            <form onSubmit={this.submitHandler}>
-                {elementsList}
+            <>
+                <form onSubmit={this.submitHandler}>
+                    {elementsList}
+                    <Button 
+                        type="Success" 
+                        disabled={!this.state.isFormValid}>
+                        {this.state.isRegister ? 'REGISTER' : 'SIGNIN'}
+                    </Button>
+                </form>
                 <Button 
-                    type="Success" 
-                    disabled={!this.state.isFormValid}>
-                    REGISTER
+                    type="Danger"
+                    clicked={this.authModeChangeHandler}>
+                    SWITCH TO {this.state.isRegister ? 'SIGNIN' : 'REGISTER'}
                 </Button>
-            </form>
+            </>
         );
 
         return (
@@ -130,7 +142,7 @@ class Auth extends Component {
 
 const mapDispatchToProps = dispatch => {
     return {
-        onAuth: (email, password) => dispatch(actions.auth(email, password))
+        onAuth: (email, password, isRegister) => dispatch(actions.auth(email, password, isRegister))
     };
 }
 
