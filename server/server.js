@@ -7,6 +7,7 @@ const jwt = require('jsonwebtoken');
 
 const orders = require('./controllers/orders');
 const register = require('./controllers/register');
+const signin = require('./controllers/signin');
 const ingredients = require('./controllers/ingredients').initialIngredients;
 
 // linux: user = omer, password = 1234
@@ -52,53 +53,63 @@ app.post('/register', (req, res) => {
     register.registerHandler(req, res, db, bcrypt);
 });
 
+app.post('/signin', (req, res) => {
+    signin.signinHandler(req, res, db, bcrypt);
+});
+
 /* ********  TEST ******** */
 
-const verifyToken = (req, res, next) => {
-    const bearerHeader = req.headers['authorization'];
+// const verifyToken = (req, res, next) => {
+//     const bearerHeader = req.headers['authorization'];
 
-    if (typeof bearerHeader !== 'undefined') {
-        const bearer = bearerHeader.split(' ');
-        const bearerToken = bearer[1];
+//     if (typeof bearerHeader !== 'undefined') {
+//         const bearer = bearerHeader.split(' ');
+//         const bearerToken = bearer[1];
         
-        req.token = bearerToken;
-        next();
-    } else {
-        res.sendStatus(403);
-    }
-};
+//         req.token = bearerToken;
+//         next();
+//     } else {
+//         res.sendStatus(403);
+//     }
+// };
 
-app.post('/test', (req, res) => {
-    res.json(`it's working`);
-});
+// app.post('/test', (req, res) => {
+//     res.json(`it's working`);
+// });
 
-app.post('/test/signin', verifyToken, (req, res) => {
-    jwt.verify(req.token, 'secret', (err, authData) => {
-        if (err) {
-            res.sendStatus(403);
-        } else {
-            res.json({
-                message: 'Working all right...',
-                data: authData
-            });
-            console.log('signin worked!!!')
-        }
-    });
-});
+// app.post('/test/signin', verifyToken, (req, res) => {
 
-const appUser = {
-    name: 'omer',
-    email: 'omer@omer.com'
-};
+//     jwt.verify(req.token, 'secret', (err, authData) => {
+//         if (err) {
+//             res.sendStatus(403);
+//         } else if (verifyToken && req){
+//             res.json({
+//                 message: 'Working all right...',
+//                 data: authData
+//             });
+//             console.log('signin worked!!!')
+//         } else {
+//             res.json('details are incorrect')
+//         }
+//     });
+// });
 
-app.post('/test/register', (req, res) => {
-    jwt.sign({user: appUser}, 'secret', (err, token) => {
-        res.json({
-            token: token,
-            user: appUser
-        });
-    })
-});
+// const appUser = {
+//     name: 'omer',
+//     email: 'omer@omer.com'
+// };
+
+// app.post('/test/register', (req, res) => {
+//     const {email, password} = req.body;
+
+//     jwt.sign({email: email, password: password}, 'secret', (err, token) => {
+//         res.json({
+//             token,
+//             email, 
+//             password
+//         });
+//     })
+// });
 
 /* ********   ******** */
 
