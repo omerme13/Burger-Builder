@@ -22,15 +22,17 @@ export const purchaseBurgerStart = () => {
     };
 };
 
-export const purchaseBurger = (data) => {
+export const purchaseBurger = (data, token) => {
     return dispatch => {
         dispatch(purchaseBurgerStart());
-        // axios({
-        //     method: 'post',
-        //     url: '/orders',
-        //     data: data
-        // })    
+
         axios.post('orders', data)
+        axios({
+            method: 'post',
+            url: '/orders',
+            data: data,
+            headers: {'Authorization': 'Bearer ' + token} 
+        })  
             .then(res => {
                 console.log(res)
 
@@ -68,18 +70,25 @@ export const fetchOrdersFail = (error) => {
     };
 };
 
-export const fetchOrders = () => {
+export const fetchOrders = (token) => {
+    console.log('theee tokkenn', token)
     return dispatch => {
         dispatch(fetchOrdersStart());
-        axios.get('/orders')
-            .then(res => {
-                const fetchedOrders = [];
+        axios({
+            method: 'get',
+            url: '/orders',
+            headers: {'Authorization': 'Bearer ' + token} 
+        })  
+        .then(response => {
+            console.log(response.data)
+            // const fetchedOrders = [];
 
-                for (let key in res.data) {
-                    fetchedOrders.push({...res.data[key]});
-                }
-                dispatch(fetchOrdersSuccess(fetchedOrders));
-            })
-            .catch(err => dispatch(fetchOrdersFail(err)));
+            // for (let key in response.data) {
+            //     fetchedOrders.push({...response.data[key]});
+            // }
+            // console.log(fetchedOrders)
+            dispatch(fetchOrdersSuccess(response.data));
+        })
+        .catch(err => dispatch(fetchOrdersFail(err)));
     }
 };

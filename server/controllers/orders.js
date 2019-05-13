@@ -18,7 +18,7 @@ const postOrderHandler = (req, res, db) => {
         name: name.value,
         city: city.value,
         street: street.value,
-        email: email.value,
+        email: email.value, //TODO try exchange email with req.userData.email
         deliveryMethod: deliveryMethod.value,
         time: new Date()
     })
@@ -31,9 +31,9 @@ const getOrdersHandler = (req, res, db) => {
     .where('email', '=', req.userData.email)
         .then(orders => {
             if (orders.length) {
-                res.json(orders);console.log(req.userData)
+                res.json(orders);
             } else {
-                res.json('No orders yet for this user');
+                res.json([]);
             }
         })
         .catch(err => res.status(400).json('error getting orders'));

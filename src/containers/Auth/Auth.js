@@ -4,6 +4,8 @@ import {connect} from 'react-redux';
 import classes from './Auth.css';
 import Input from '../../components/UI/Form/Input/Input';
 import Button from '../../components/UI/Button/Button';
+import Spinner from '../../components/UI/Spinner/Spinner';
+import ErrorMessage from '../../components/UI/ErrorMessage/ErrorMessage';
 import * as actions from '../../store/actions/index';
 
 const createInput = (config, value, validation) => {
@@ -132,13 +134,41 @@ class Auth extends Component {
             </>
         );
 
+        if (this.props.isLoading) {
+            form  = <Spinner />
+        } 
+
+        let errorMessage = null;
+
+        if (this.props.error) {
+            let errorContent = null;
+            const errorString = this.props.error.message;
+            const errorCode = errorString.split(' ')[5];
+
+            if (errorCode === '409') {
+                errorContent = 'This user already exists in the system';
+            } else if (errorCode === '400') {
+                errorContent = 'Invalid Email or/and Password';
+            }
+
+            errorMessage = <ErrorMessage>{errorContent}</ErrorMessage>
+        }
+
         return (
-            <div className={classes.Auth}>
+            <div className={classes.Auth}>                
+                {errorMessage}
                 {form}
             </div>
         );
     }
 }
+
+const mapStateToProps = state => {
+    return {
+        isLoading: state.auth.isLoading,
+        error: state.auth.error
+    };
+};
 
 const mapDispatchToProps = dispatch => {
     return {
@@ -146,4 +176,4 @@ const mapDispatchToProps = dispatch => {
     };
 }
 
-export default connect(null, mapDispatchToProps)(Auth);
+export default connect(mapStateToProps, mapDispatchToProps)(Auth);

@@ -110,7 +110,7 @@ class ContactData extends Component {
                 email: email,
                 deliveryMethod: deliveryMethod
         }
-        this.props.onOrder(data)
+        this.props.onOrder(data, this.props.token)
         e.preventDefault();
     }
 
@@ -202,13 +202,14 @@ const mapStateToProps = state => {
     return {
         ing: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
-        isLoading: state.order.isLoading
+        isLoading: state.order.isLoading, 
+        token: state.auth.token
     };
 }
 
 const mapDispatchToProps = dispatch => {
     return {
-        onOrder: (data) => dispatch(actions.purchaseBurger(data))
+        onOrder: (data, token) => dispatch(actions.purchaseBurger(data, token))
     };
 };
 

@@ -40,7 +40,7 @@ app.get('/ingredients', (req, res) => {
     res.send(ingredients)
 });
 
-app.post('/orders', (req, res) => {
+app.post('/orders', verifyToken, (req, res) => {
     orders.postOrderHandler(req, res, db);
 });
 

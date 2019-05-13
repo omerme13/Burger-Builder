@@ -5,20 +5,23 @@ const signinHandler = (req, res, db, bcrypt, jwt) => {
     .where('email', '=', email)
     .then(data => {
         const isValid = bcrypt.compareSync(password, data[0].hash);
+        const expirationTime = 3600;
         
         //*TODO insert into users table the right id from login table             
         if (isValid) {
             const token = jwt.sign(
                 {email: data[0].email, id: data[0].id}, 
                 'cheese', 
-                {expiresIn:"1h"}
+                {expiresIn: expirationTime}
             );
             
             return db.select('*').from('users')
             .where('email', '=', email)
                 .then(user => res.json({
-                    message: "Auth successful", 
-                    token: token
+                    token: token, 
+                    userId: user[0].id,
+                    expirationTime
+                    
                 }))
                 .then(console.log(data[0].email, data[0].id))
                 .catch(err => res.status(400).json('unable to get user'));

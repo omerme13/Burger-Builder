@@ -7,11 +7,11 @@ export const authStart = () => {
     };
 };
 
-export const authSuccess = (token, user) => {
+export const authSuccess = (data) => {
     return {
         type: actionTypes.AUTH_SUCCESS,
-        token: token,
-        user: user
+        token: data.token,
+        userId: data.userId,
     };
 };
 
@@ -21,6 +21,19 @@ export const authFail = (error) => {
         error: error
     };
 };
+
+export const logout = () => {
+    return {
+        type: actionTypes.AUTH_LOGOUT
+    };
+};
+
+export const checkAuthTimeout = expirationTime => {
+    return dispatch => {
+        setTimeout(() => dispatch(logout()), expirationTime * 1000);
+    };
+};
+
 
 export const auth = (email, password, isRegister) => {
     return dispatch => {
@@ -46,9 +59,9 @@ export const auth = (email, password, isRegister) => {
             axios.post(url, authData)
                 .then(response => {
                     dispatch(authSuccess(response.data));
-                    console.log(response.data.token)
+                    dispatch(checkAuthTimeout(response.data.expirationTime));
+                    // response.data = expirationTime, userId, token
                 })
-                .then(console.log('success signing'))
                 .catch(err => {
                     console.log(err);
                     dispatch(authFail(err));
