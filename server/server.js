@@ -10,6 +10,8 @@ const register = require('./controllers/register');
 const signin = require('./controllers/signin');
 const ingredients = require('./controllers/ingredients').initialIngredients;
 
+const verifyToken = require('./middleware/verifyToken').verifyToken;
+
 // linux: user = omer, password = 1234
 // windows: user = postgres, password = '' 
 let user = 'omer';
@@ -43,9 +45,16 @@ app.post('/orders', (req, res) => {
     console.log('axios works')
 });
 
-app.get('/orders', (req, res) => {
+app.get('/orders', verifyToken, (req, res) => {
     db.select('*').from('orders')
-        .then(response => res.json(response))
+    .where('email', '=', req.userData.email)
+        .then(orders => {
+            if (orders.length) {
+                res.json(orders)  
+            } else {
+                res.json('No orders yet for this user');
+            }
+        })
         .catch(err => res.status(400).json('error getting orders'));
 });
 
@@ -54,63 +63,8 @@ app.post('/register', (req, res) => {
 });
 
 app.post('/signin', (req, res) => {
-    signin.signinHandler(req, res, db, bcrypt);
+    signin.signinHandler(req, res, db, bcrypt, jwt);
 });
 
-/* ********  TEST ******** */
-
-// const verifyToken = (req, res, next) => {
-//     const bearerHeader = req.headers['authorization'];
-
-//     if (typeof bearerHeader !== 'undefined') {
-//         const bearer = bearerHeader.split(' ');
-//         const bearerToken = bearer[1];
-        
-//         req.token = bearerToken;
-//         next();
-//     } else {
-//         res.sendStatus(403);
-//     }
-// };
-
-// app.post('/test', (req, res) => {
-//     res.json(`it's working`);
-// });
-
-// app.post('/test/signin', verifyToken, (req, res) => {
-
-//     jwt.verify(req.token, 'secret', (err, authData) => {
-//         if (err) {
-//             res.sendStatus(403);
-//         } else if (verifyToken && req){
-//             res.json({
-//                 message: 'Working all right...',
-//                 data: authData
-//             });
-//             console.log('signin worked!!!')
-//         } else {
-//             res.json('details are incorrect')
-//         }
-//     });
-// });
-
-// const appUser = {
-//     name: 'omer',
-//     email: 'omer@omer.com'
-// };
-
-// app.post('/test/register', (req, res) => {
-//     const {email, password} = req.body;
-
-//     jwt.sign({email: email, password: password}, 'secret', (err, token) => {
-//         res.json({
-//             token,
-//             email, 
-//             password
-//         });
-//     })
-// });
-
-/* ********   ******** */
 
 app.listen(3000);

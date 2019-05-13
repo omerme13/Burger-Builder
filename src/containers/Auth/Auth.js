@@ -86,7 +86,7 @@ class Auth extends Component {
         const {email, password} = this.state.authForm;
 
         e.preventDefault();
-        this.props.onAuth(email, password, this.state.isRegister);
+        this.props.onAuth(email.value, password.value, this.state.isRegister);
     }
 
     authModeChangeHandler = () => {

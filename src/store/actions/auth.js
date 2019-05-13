@@ -28,32 +28,27 @@ export const auth = (email, password, isRegister) => {
             email, 
             password
         }
-        let url = '/test/signin';
+        let url = '/signin';
 
         dispatch(authStart());
         if (isRegister) {
-            url = 'test/register';
+            url = '/register';
 
             axios.post(url, authData)
                 .then(response => {
-                    // console.log(response);
                     dispatch(authSuccess(response.data));
                 })
+                .then(console.log('success registering'))
+                .catch(err => {
+                    dispatch(authFail(err));
+                })
+        } else {
+            axios.post(url, authData)
+                .then(console.log('success signing'))
                 .catch(err => {
                     console.log(err);
                     dispatch(authFail(err));
                 })
-        } else {
-            axios({
-                method: 'post',
-                url: '/test/signin',
-                data: authData,
-                headers: {"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7Im5hbWUiOiJvbWVyIiwiZW1haWwiOiJvbWVyQG9tZXIuY29tIn0sImlhdCI6MTU1NzQ4NDkwNX0.wLeE6nqfNMUSiyBads9-22HUD0CE2HN-gfRd-oKcnY4"}
-            })    
-            .catch(err => {
-                console.log(err);
-                dispatch(authFail(err));
-            })
         }
 
     }
