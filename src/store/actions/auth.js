@@ -44,6 +44,10 @@ export const auth = (email, password, isRegister) => {
                 })
         } else {
             axios.post(url, authData)
+                .then(response => {
+                    dispatch(authSuccess(response.data));
+                    console.log(response.data.token)
+                })
                 .then(console.log('success signing'))
                 .catch(err => {
                     console.log(err);

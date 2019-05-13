@@ -1,6 +1,6 @@
 const prices = require('./ingredients').prices;
 
-const orderHandler = (req, res, db) => {
+const postOrderHandler = (req, res, db) => {
     const {
         meat, cheese, bacon, salad, 
         name, city, street, email, deliveryMethod
@@ -24,9 +24,22 @@ const orderHandler = (req, res, db) => {
     })
         .then(response => res.json(response))
         .catch(err => res.status(400).json('error getting orders'));
+}
 
+const getOrdersHandler = (req, res, db) => {
+    db.select('*').from('orders')
+    .where('email', '=', req.userData.email)
+        .then(orders => {
+            if (orders.length) {
+                res.json(orders);console.log(req.userData)
+            } else {
+                res.json('No orders yet for this user');
+            }
+        })
+        .catch(err => res.status(400).json('error getting orders'));
 }
 
 module.exports = {
-    orderHandler: orderHandler
+    getOrdersHandler: getOrdersHandler,
+    postOrderHandler: postOrderHandler
 };

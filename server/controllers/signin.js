@@ -20,7 +20,7 @@ const signinHandler = (req, res, db, bcrypt, jwt) => {
                     message: "Auth successful", 
                     token: token
                 }))
-                .then(console.log(email, token))
+                .then(console.log(data[0].email, data[0].id))
                 .catch(err => res.status(400).json('unable to get user'));
         } else {
             res.status(400).json('wrong credentials');

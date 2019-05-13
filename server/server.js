@@ -41,21 +41,11 @@ app.get('/ingredients', (req, res) => {
 });
 
 app.post('/orders', (req, res) => {
-    orders.orderHandler(req, res, db);
-    console.log('axios works')
+    orders.postOrderHandler(req, res, db);
 });
 
 app.get('/orders', verifyToken, (req, res) => {
-    db.select('*').from('orders')
-    .where('email', '=', req.userData.email)
-        .then(orders => {
-            if (orders.length) {
-                res.json(orders)  
-            } else {
-                res.json('No orders yet for this user');
-            }
-        })
-        .catch(err => res.status(400).json('error getting orders'));
+    orders.getOrdersHandler(req, res, db);
 });
 
 app.post('/register', (req, res) => {
