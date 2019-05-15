@@ -2,12 +2,15 @@ import React from 'react';
 import NavItem from './NavItem/NavItem';
 import classes from './NavItems.css';
 
-const navItems = () => (
+const navItems = props => (
     <ul className={classes.NavItems}>
         <NavItem link="/" exact>Burger Builder</NavItem>
-        <NavItem link="/orders">Orders</NavItem>
-        <NavItem link="/auth">Authentication</NavItem>
-        
+        {props.isAuth 
+            ? <>
+                <NavItem link="/orders">Orders</NavItem>
+                <NavItem link="/logout">Logout</NavItem>
+              </>  
+            : <NavItem link="/auth">Authentication</NavItem>}
     </ul>
 );
 

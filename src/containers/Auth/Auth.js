@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {Redirect} from 'react-router-dom';
 
 import classes from './Auth.css';
 import Input from '../../components/UI/Form/Input/Input';
@@ -94,6 +95,7 @@ class Auth extends Component {
     authModeChangeHandler = () => {
         this.setState({isRegister: !this.state.isRegister})
     }
+    
 
     render() {
         const formElements = [];
@@ -154,10 +156,22 @@ class Auth extends Component {
             errorMessage = <ErrorMessage>{errorContent}</ErrorMessage>
         }
 
+        let authRedirect = null;
+        console.log(this.props.isBuilding, 'building')
+
+        if (this.props.isAuthenticated) {
+            if (this.props.isBuilding) {
+                authRedirect = <Redirect to="/checkout" />
+            } else {
+                authRedirect = <Redirect to="/" />
+            }
+        }
+
         return (
             <div className={classes.Auth}>                
                 {errorMessage}
                 {form}
+                {authRedirect}
             </div>
         );
     }
@@ -166,7 +180,9 @@ class Auth extends Component {
 const mapStateToProps = state => {
     return {
         isLoading: state.auth.isLoading,
-        error: state.auth.error
+        error: state.auth.error,
+        isAuthenticated: state.auth.token,
+        isBuilding: state.burgerBuilder.isBuilding
     };
 };
 
