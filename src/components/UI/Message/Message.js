@@ -1,23 +1,23 @@
 import React, {Component} from 'react';
-import classes from './ErrorMessage.css';
+import classes from './Message.css';
+
 
 class ErrorMessage extends Component {
-    
     state = {
-        currClass: classes.ErrorMessage
+        class: [classes.Message, classes[this.props.type]].join(' ') 
     }
 
     componentDidMount() {
         setTimeout(() => {
             this.setState({
-                currClass: classes.Hide
+                class: classes.Hide
             }) 
         }, 3000);
     }
 
     render() {
         return(
-            <div className={this.state.currClass}>
+            <div className={this.state.class}>
                 {this.props.children}
             </div>
         )

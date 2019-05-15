@@ -1,0 +1,21 @@
+.Message {
+    border-radius: 5px;
+    padding: 15px;
+    width: 100%;
+}
+
+.Error {
+    border: 1px solid red;
+    color: red;
+    background-color: rgba(255,0,0,0.05);
+}
+
+.Success {
+    border: 1px solid green;
+    color: green;
+    background-color: rgba(0,255,0,0.05);
+}
+
+.Hide {
+    display: none;
+}

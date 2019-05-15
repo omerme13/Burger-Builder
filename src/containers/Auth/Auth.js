@@ -6,7 +6,7 @@ import classes from './Auth.css';
 import Input from '../../components/UI/Form/Input/Input';
 import Button from '../../components/UI/Button/Button';
 import Spinner from '../../components/UI/Spinner/Spinner';
-import ErrorMessage from '../../components/UI/ErrorMessage/ErrorMessage';
+import Message from '../../components/UI/Message/Message';
 import * as actions from '../../store/actions/index';
 
 const createInput = (config, value, validation) => {
@@ -43,7 +43,8 @@ class Auth extends Component {
 
         },
         isFormValid: false, 
-        isRegister: true
+        isRegister: true,
+        submitted: false
     }
 
     inputChangeHandler = (e, inputId) => {
@@ -89,6 +90,7 @@ class Auth extends Component {
         const {email, password} = this.state.authForm;
 
         e.preventDefault();
+        this.setState({submitted: true})
         this.props.onAuth(email.value, password.value, this.state.isRegister);
     }
 
@@ -141,6 +143,7 @@ class Auth extends Component {
         } 
 
         let errorMessage = null;
+        let successMessage = null;
 
         if (this.props.error) {
             let errorContent = null;
@@ -150,10 +153,18 @@ class Auth extends Component {
             if (errorCode === '409') {
                 errorContent = 'This user already exists in the system';
             } else if (errorCode === '400') {
-                errorContent = 'Invalid Email or/and Password';
+                errorContent = 'Invalid email or/and password';
             }
 
-            errorMessage = <ErrorMessage>{errorContent}</ErrorMessage>
+            errorMessage = <Message type="Error">{errorContent}</Message>
+        }
+
+        if(!this.props.error && this.state.isRegister && this.state.submitted) {
+            successMessage = (
+                <Message type="Success">
+                    You have registered successfully!
+                </Message>
+            );
         }
 
         let authRedirect = null;
@@ -168,7 +179,8 @@ class Auth extends Component {
         }
 
         return (
-            <div className={classes.Auth}>                
+            <div className={classes.Auth}>       
+                {successMessage}         
                 {errorMessage}
                 {form}
                 {authRedirect}

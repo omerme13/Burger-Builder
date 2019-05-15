@@ -20,8 +20,7 @@ const signinHandler = (req, res, db, bcrypt, jwt) => {
                 .then(user => res.json({
                     token: token, 
                     userId: user[0].id,
-                    expirationTime
-                    
+                    expirationTime   
                 }))
                 .then(console.log(data[0].email, data[0].id))
                 .catch(err => res.status(400).json('unable to get user'));

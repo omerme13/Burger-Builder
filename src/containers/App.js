@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Route } from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import classes from './App.css';
 import Layout from './Layout/Layout';
@@ -8,8 +9,13 @@ import Checkout from './Checkout/Checkout';
 import Orders from './Orders/Orders';
 import Auth from './Auth/Auth';
 import Logout from './Auth/Logout/Logout';
+import * as actions from '../store/actions/index';
 
 class App extends Component {
+    componentDidMount() {
+        this.props.onAutoSignIn();
+    }
+
     render() {
         return (
             <div className={classes.App}>
@@ -26,4 +32,10 @@ class App extends Component {
     }
 }
 
-export default App;
+const mapDispatchToProps = dispatch => {
+    return {
+        onAutoSignIn: () => dispatch(actions.authCheckState())
+    };
+};
+
+export default connect(null, mapDispatchToProps)(App);
