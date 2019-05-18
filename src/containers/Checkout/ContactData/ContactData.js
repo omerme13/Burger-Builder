@@ -8,6 +8,7 @@ import classes from './ContactData.css';
 import axios from '../../../axios-orders';
 import withError from '../../../HOC/withErrorHandler/withErrorHandler';
 import * as actions from '../../../store/actions/index';
+import checkValidity from '../../../shared/checkValidity';
 
 const createInput = (kind, config, value, validation) => {
     let configuration = {
@@ -121,7 +122,7 @@ class ContactData extends Component {
 
         updatedElement.touched = true;
         updatedElement.value = e.target.value;
-        updatedElement.isValid = this.checkValidity(updatedElement.value, updatedElement.validation);
+        updatedElement.isValid = checkValidity(updatedElement.value, updatedElement.validation);
         updatedForm[inputId] = updatedElement;
 
         let isFormValid = true;
@@ -134,23 +135,6 @@ class ContactData extends Component {
             orderForm: updatedForm,
             isFormValid: isFormValid
         });
-    }
-
-    checkValidity = (value, rules) => {
-        let isValid = true;
-
-        if (rules.required) {
-            // isValid gets true/false depends if the value is empty or not(trim excludes white space)
-            isValid = value.trim() !== '';
-        }
-        if (rules.minLen) {
-            isValid = (value.length >= rules.minLen) && isValid;
-        }
-        if (rules.maxLength) {
-            isValid = (value.length <= rules.maxLength) && isValid;
-        }
-
-        return isValid;
     }
 
     render() {

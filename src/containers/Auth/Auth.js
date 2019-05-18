@@ -8,6 +8,7 @@ import Button from '../../components/UI/Button/Button';
 import Spinner from '../../components/UI/Spinner/Spinner';
 import Message from '../../components/UI/Message/Message';
 import * as actions from '../../store/actions/index';
+import checkValidity from '../../shared/checkValidity';
 
 const createInput = (config, value, validation) => {
     return ({   
@@ -54,7 +55,7 @@ class Auth extends Component {
 
         updatedElement.touched = true;
         updatedElement.value = e.target.value;
-        updatedElement.isValid = this.checkValidity(updatedElement.value, updatedElement.validation);
+        updatedElement.isValid = checkValidity(updatedElement.value, updatedElement.validation);
         updatedForm[inputId] = updatedElement;
 
         let isFormValid = true;
@@ -67,23 +68,6 @@ class Auth extends Component {
             authForm: updatedForm,
             isFormValid: isFormValid
         });
-    }
-
-    checkValidity = (value, rules) => {
-        let isValid = true;
-
-        if (rules.required) {
-            // isValid gets true/false depends if the value is empty or not(trim excludes white space)
-            isValid = value.trim() !== '';
-        }
-        if (rules.minLen) {
-            isValid = (value.length >= rules.minLen) && isValid;
-        }
-        if (rules.maxLength) {
-            isValid = (value.length <= rules.maxLength) && isValid;
-        }
-
-        return isValid;
     }
 
     submitHandler = (e) => {
@@ -154,6 +138,8 @@ class Auth extends Component {
                 errorContent = 'This user already exists in the system';
             } else if (errorCode === '400') {
                 errorContent = 'Invalid email or/and password';
+            } else {
+                errorContent = 'Sorry we had a problem with the server';
             }
 
             errorMessage = <Message type="Error">{errorContent}</Message>

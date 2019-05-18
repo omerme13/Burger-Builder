@@ -3,7 +3,7 @@ import NavItem from './NavItem/NavItem';
 import classes from './NavItems.css';
 
 const navItems = props => (
-    <ul className={classes.NavItems}>
+    <ul className={classes.NavItems} onClick={props.clicked}>
         <NavItem link="/" exact>Burger Builder</NavItem>
         {props.isAuth 
             ? <>
