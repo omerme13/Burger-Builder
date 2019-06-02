@@ -64,12 +64,7 @@ const inputs = {
         minLen: 2,
         maxLen: 32
     }),
-    email: createInput('input', {type: 'email', placeholder: 'Your Email'}, '', 
-    {
-        required : true,
-        minLen: 5,
-        maxLen: 32
-    }),
+
     deliveryMethod: createInput('select',{
         options: [
             {value: 'cheapest', displayValue: 'Cheapest'},
@@ -84,7 +79,13 @@ class ContactData extends Component {
             name: inputs.name,
             city: inputs.city,
             street: inputs.street,
-            email: inputs.email,
+            // for the email i had to write all of it in the state so it could get the email value from the props
+            email: createInput('input', {type: 'email', placeholder: 'Your Email'}, this.props.email, 
+            {
+                required : true,
+                minLen: 5,
+                maxLen: 32
+            }),
             deliveryMethod: inputs.deliveryMethod
         },
         isFormValid: false
@@ -116,6 +117,7 @@ class ContactData extends Component {
     }
 
     inputChangeHandler = (e, inputId) => {
+        console.log(this.props.email, this.props.token)
         // This is a method to change nested state. The usual way won't work
         const updatedForm = {...this.state.orderForm};
         const updatedElement = {...updatedForm[inputId]};
@@ -187,7 +189,8 @@ const mapStateToProps = state => {
         ing: state.burgerBuilder.ingredients,
         price: state.burgerBuilder.totalPrice,
         isLoading: state.order.isLoading, 
-        token: state.auth.token
+        token: state.auth.token,
+        email: state.auth.email
     };
 }
 

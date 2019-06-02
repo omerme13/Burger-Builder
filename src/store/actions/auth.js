@@ -12,6 +12,7 @@ export const authSuccess = (data) => {
         type: actionTypes.AUTH_SUCCESS,
         token: data.token,
         userId: data.userId,
+        email: data.email
     };
 };
 
@@ -57,7 +58,7 @@ export const auth = (email, password, isRegister) => {
                 localStorage.setItem('token', response.data.token);
                 localStorage.setItem('expiration date', expDate);
                 localStorage.setItem('user id', response.data.userId);
-                dispatch(authSuccess(response.data)); // response.data(singin) = expirationTime, userId, token. response.data(register) = email, id, joined 
+                dispatch(authSuccess(response.data)); // response.data(singin) = expirationTime, userId, token, email. response.data(register) = email, id, joined 
                 if (!isRegister) {
                     dispatch(checkAuthTimeout(response.data.expirationTime));
                 }
