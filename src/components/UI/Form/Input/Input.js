@@ -6,7 +6,7 @@ const input = props => {
     let validationError = null;
     const inputClasses = [classes.InputElement]
 
-    if (!props.isValid /*&& props.shouldValidate*/ && props.touched) {
+    if (!props.isValid && props.touched) {
         inputClasses.push(classes.Invalid);
         validationError = <p className={classes.Error}>
             Please insert a valid {props.config.type}

@@ -117,7 +117,6 @@ class ContactData extends Component {
     }
 
     inputChangeHandler = (e, inputId) => {
-        console.log(this.props.email, this.props.token)
         // This is a method to change nested state. The usual way won't work
         const updatedForm = {...this.state.orderForm};
         const updatedElement = {...updatedForm[inputId]};
