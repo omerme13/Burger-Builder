@@ -10,7 +10,7 @@ const navItems = props => (
                 <NavItem link="/orders">Orders</NavItem>
                 <NavItem link="/logout">Logout</NavItem>
               </>  
-            : <NavItem link="/auth">Authentication</NavItem>}
+            : <NavItem link="/auth">Login / Register</NavItem>}
     </ul>
 );
 

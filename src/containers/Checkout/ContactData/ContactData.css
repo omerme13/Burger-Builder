@@ -5,12 +5,16 @@
 }
 
 .ContactData form {
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
+    display: block;
+    padding: 15px;
+    border-radius: 3px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+    margin-bottom: 40px;
 }
 
-.ContactData input {
+.ContactData input,
+select {
     padding: 8px;
-    margin: 5px;
+    margin: 5px auto;
+    box-sizing: border-box; /* general box-sizing didn't take affect*/
 }    

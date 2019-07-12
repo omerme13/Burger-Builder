@@ -111,13 +111,13 @@ class Auth extends Component {
                     <Button 
                         type="Success" 
                         disabled={!this.state.isFormValid}>
-                        {this.state.isRegister ? 'REGISTER' : 'SIGNIN'}
+                        {this.state.isRegister ? 'REGISTER' : 'LOGIN'}
                     </Button>
                 </form>
                 <Button 
                     type="Danger"
                     clicked={this.authModeChangeHandler}>
-                    SWITCH TO {this.state.isRegister ? 'SIGNIN' : 'REGISTER'}
+                    SWITCH TO {this.state.isRegister ? 'LOGIN' : 'REGISTER'}
                 </Button>
             </>
         );

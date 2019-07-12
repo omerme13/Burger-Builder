@@ -1,5 +1,5 @@
 .Input {
-    width: 100%;
+    /* width: 100%; */
     padding: 8px;
 }
 
@@ -10,9 +10,10 @@
 } */
 
 .InputElement {
-    ouline: none;
+    outline: none;
     border: 1px solid gray;
     background-color: white;
+    border-radius: 2px;
     font: inherit;
     display: block;
     width: 100%;

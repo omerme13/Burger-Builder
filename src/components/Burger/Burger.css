@@ -1,24 +1,44 @@
 .Burger {
     width: 100%;
+    /* max-width: 400px; */
     margin: auto;
     height: 250px;
     overflow: auto;
-    text-align: center;
-    font-weight: bold;
     font-size: 1.2em;
 }
 
-@media (min-width: 500px) and (min-height: 400px) {
+.Burger p {
+    display: block;
+    color: brown;
+    animation: addIng 0.8s ease-in-out infinite;
+}
+
+@media (min-width: 500px) /*and (min-height: 400px) */{
     .Burger {
         width: 450px;
         height: 400px;
     }
 }
 
-@media (min-width: 1000px) and (min-height: 700px) {
+@media (min-width: 1000px) /*and (min-height: 700px)*/ {
     .Burger {
         width: 700px;
         height: 600px;
+    }
+}
+
+@keyframes addIng{
+    0% {
+        transform: translateY(0);
+    }
+
+    80% {
+        transform: translateY(-5px);
+        
+    }
+
+    100% {
+        transform: translateY(2px);
     }
 }
 
