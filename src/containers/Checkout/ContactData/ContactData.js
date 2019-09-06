@@ -35,6 +35,11 @@ const createInput = (kind, config, value, validation) => {
         isValid = true;
     }
 
+    if (config.type === 'email' && value) {
+        // in case the email field is auto completed and inputChangeHandler won't be activated i validated the email.
+        isValid = true;
+    }
+
     return ({   
         kind: kind,
         config: configuration,
@@ -164,7 +169,8 @@ class ContactData extends Component {
                 {elementsList}
                 <Button 
                     type="Success" 
-                    disabled={!this.state.isFormValid}>
+                    disabled={!this.state.isFormValid}
+                >
                     ORDER
                 </Button>
             </form>

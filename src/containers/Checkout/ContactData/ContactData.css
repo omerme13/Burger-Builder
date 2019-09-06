@@ -18,3 +18,9 @@ select {
     margin: 5px auto;
     box-sizing: border-box; /* general box-sizing didn't take affect*/
 }    
+
+@media (max-width: 500px) {
+    .ContactData button {
+        font-size: 80%;
+    }
+}

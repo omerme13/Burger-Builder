@@ -28,6 +28,7 @@
 @media (max-width: 500px) {
     .NavItem {
         width: 100%;
+        font-size: 140%;
     }
 
     .NavItem a {

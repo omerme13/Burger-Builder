@@ -1,9 +1,19 @@
 .CheckoutSummary {
     text-align: center;
-    /* width: 80%; */
     width: 80%;
-    max-width: 500px;
     margin: auto;
+    color: burlywood;
+    font-size: 100%;
+}
+
+.CheckoutSummary h1 {
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.CheckoutSummary button {
+    font-size: 80%;
+    margin-bottom: 60px;
 }
 
 .Burger {

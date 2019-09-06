@@ -1,15 +1,15 @@
 .Burger {
     width: 100%;
-    /* max-width: 400px; */
     margin: auto;
     height: 250px;
     overflow: auto;
-    font-size: 1.2em;
+    text-align: center;
 }
 
 .Burger p {
     display: block;
     color: brown;
+    font-size: 1.2em;
     animation: addIng 0.8s ease-in-out infinite;
 }
 
