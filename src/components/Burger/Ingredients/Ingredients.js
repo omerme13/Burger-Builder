@@ -23,19 +23,19 @@ class Ingredient extends Component {
                 break;
     
             case ('meat'):
-                ingredient = <div className={classes.Meat}></div>;
+                ingredient = <li className={classes.Meat}></li>;
                 break;
     
             case ('cheese'):
-                ingredient = <div className={classes.Cheese}></div>;
+                ingredient = <li className={classes.Cheese}></li>;
                 break;
             
             case ('salad'):
-                ingredient = <div className={classes.Salad}></div>;
+                ingredient = <li className={classes.Salad}></li>;
                 break;
     
             case ('bacon'):
-                ingredient = <div className={classes.Bacon}></div>;
+                ingredient = <li className={classes.Bacon}></li>;
                 break;
     
             default: ingredient = null;       

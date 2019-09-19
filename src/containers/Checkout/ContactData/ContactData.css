@@ -10,6 +10,7 @@
     border-radius: 3px;
     box-shadow: 0 10px 20px rgba(0,0,0,0.15);
     margin-bottom: 40px;
+    transition: 1s;
 }
 
 .ContactData input,
@@ -24,3 +25,18 @@ select {
         font-size: 80%;
     }
 }
+
+:global(.f-enter) {
+    opacity: 0;
+  }
+  :global(.f-enter-active) {
+    opacity: 1;
+    transition: 1s ease-out;
+  }
+  :global(.f-exit) {
+    opacity: 1;
+  }
+  :global(.f-exit-active) {
+    opacity: 0;
+    transition: 1s ease-out;
+  }

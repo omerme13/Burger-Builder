@@ -13,6 +13,17 @@
     animation: addIng 0.8s ease-in-out infinite;
 }
 
+.Burger ul {
+    text-decoration: none;
+}
+
+.IngList li {
+    /* i couldn't remove the bullet points without removing the whole ingredient so i made it transparent*/
+    color: transparent;
+    margin: 2% auto;
+}
+
+
 @media (min-width: 500px) /*and (min-height: 400px) */{
     .Burger {
         width: 450px;
@@ -27,7 +38,7 @@
     }
 }
 
-@keyframes addIng{
+@keyframes addIng {
     0% {
         transform: translateY(0);
     }
@@ -41,4 +52,21 @@
         transform: translateY(2px);
     }
 }
+
+:global(.fade-enter) {
+    opacity: 0;
+  }
+  :global(.fade-enter-active) {
+    opacity: 1;
+    transition: 200ms ease-out;
+  }
+  :global(.fade-exit) {
+    opacity: 1;
+  }
+  :global(.fade-exit-active) {
+    opacity: 0;
+    transition: 200ms ease-out;
+  }
+
+
 
