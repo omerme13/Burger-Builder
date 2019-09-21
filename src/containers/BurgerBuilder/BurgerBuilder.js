@@ -10,6 +10,8 @@ import withErrorHandler from '../../HOC/withErrorHandler/withErrorHandler';
 import axios from '../../axios-orders';
 import * as actions from '../../store/actions/index';
 
+import classes from './BurgerBuilder.css';
+
 const initialState = {
     purchasing: false
 }
@@ -60,7 +62,7 @@ class BurgerBuilder extends Component {
 
         if (this.props.ing) {
             burger = (
-                <>
+                <div className={classes.BurgerBuilder}>
                     <Burger ingredients={this.props.ing} />
                     <BuildControls
                         ingredientAdded={this.props.onIngAdded}
@@ -70,7 +72,7 @@ class BurgerBuilder extends Component {
                         ordered={this.purchaseHandler}
                         isAuth={this.props.isAuthenticated}
                     />
-                </>
+                </div>
             );
 
             orderSummary = <OrderSummary 
@@ -82,7 +84,7 @@ class BurgerBuilder extends Component {
         }
 
         return (
-            <>
+            <div className={classes.BurgerBuilderContainer}>
                 <Modal 
                     show={this.state.purchasing}
                     modalClose={this.cancelPurchaseHandler}
@@ -90,7 +92,7 @@ class BurgerBuilder extends Component {
                     {orderSummary}        
                 </Modal>            
                 {burger}
-            </>
+            </div>
         );
     }
 }

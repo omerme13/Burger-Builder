@@ -1,15 +1,17 @@
 .Order {
     width: 80%;
     border: 1px solid lightgray;
-    box-shadow: 0 2px 3px gray;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.1);
     padding: 10px;
-    margin: 10px auto;  
+    margin: 20px auto;  
+    border-radius: 3px;
+
 }
 
 .Order span {
     text-transform: capitalize;
     margin: 5px;
     padding: 5px;
-    border: 1px solid grey;
+    border: 1px solid #AA6817;
     border-radius: 5px;
 }

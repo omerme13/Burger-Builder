@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+
 import { Route } from 'react-router-dom';
 import {connect} from 'react-redux';
+import { AnimatedSwitch } from 'react-router-transition';
 
 import classes from './App.css';
 import Layout from './Layout/Layout';
@@ -15,20 +17,39 @@ class App extends Component {
     componentDidMount() {
         this.props.onAutoSignIn();
     }
-
+    
     render() {
         return (
             <div className={classes.App}>
-                
                 <Layout>
-                    <Route path="/" exact component={BurgerBuilder} /> 
-                    <Route path="/checkout" component={Checkout} />
-                    <Route path="/orders" component={Orders} />
-                    <Route path="/auth" component={Auth} />
                     <Route path="/logout" component={Logout} />
+                    <Route path="/checkout" component={Checkout} />
+                    <Route path="/auth" component={Auth} />
+                    <AnimatedSwitch
+                        atEnter={{ opc: 0 }}
+                        atLeave={{ opc: 0 }}
+                        atActive={{ opc: 1 }}
+                        mapStyles={(styles) => ({
+                            opacity: styles.opc
+                        })}
+                    >
+
+                        <Route path="/" component={BurgerBuilder} exact/>
+                        {/* i'm protecting the route from unauthorized access */
+                            this.props.isAuthenticated
+                            ? <Route path="/orders" component={Orders} />
+                            : null
+                        }
+                    </AnimatedSwitch>
                 </Layout>
             </div>
         );
+    }
+}
+
+const mapStateToProps = state => {
+    return {
+        isAuthenticated: state.auth.token
     }
 }
 
@@ -38,4 +59,4 @@ const mapDispatchToProps = dispatch => {
     };
 };
 
-export default connect(null, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

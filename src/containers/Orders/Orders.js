@@ -16,8 +16,15 @@ class Orders extends Component {
     render() {
         let orders = this.props.isLoading
             ? <Spinner />
-            : this.props.orders.map(order => (
-                <Order 
+            : this.props.orders.map(order => {
+                const date = new Date(order.time);
+                const time = `
+                    ${date.getUTCDate()}-
+                    ${date.getUTCMonth()}-
+                    ${date.getUTCFullYear()}
+                `;
+
+                return <Order 
                     key={order.id}
                     ingredients={{
                         meat: order.meat,
@@ -26,8 +33,9 @@ class Orders extends Component {
                         bacon: order.bacon
                     }}
                     price={+order.price}
+                    time={time}
                 />
-            ));
+            });
 
         return orders;
     }

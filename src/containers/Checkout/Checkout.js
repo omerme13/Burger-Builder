@@ -20,7 +20,7 @@ class Checkout extends Component {
         // i need it to scroll a little bit after tbe contact data is rendered if not it will not scroll down
         setTimeout(() => {
             window.scrollBy({
-                top: 400,
+                top: 500,
                 behavior: 'smooth'
               });
         }, 1)

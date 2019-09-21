@@ -71,7 +71,6 @@ export const fetchOrdersFail = (error) => {
 };
 
 export const fetchOrders = (token) => {
-    console.log('theee tokkenn', token)
     return dispatch => {
         dispatch(fetchOrdersStart());
         axios({
@@ -80,13 +79,6 @@ export const fetchOrders = (token) => {
             headers: {'Authorization': 'Bearer ' + token} 
         })  
         .then(response => {
-            console.log(response.data)
-            // const fetchedOrders = [];
-
-            // for (let key in response.data) {
-            //     fetchedOrders.push({...response.data[key]});
-            // }
-            // console.log(fetchedOrders)
             dispatch(fetchOrdersSuccess(response.data));
         })
         .catch(err => dispatch(fetchOrdersFail(err)));

@@ -1,14 +1,9 @@
 .BuildControls {
     width: 100%;
-    background-image: linear-gradient(rgba(0,0,0, 0.8), rgba(0,0,0, 0.8)), url(../../../assets/images/cover.jpg);
-    background-size: cover;
-    background-attachment: fixed;
-
+    flex: 4;
     display: flex;
     flex-flow: column;
     align-items: center;
-    box-shadow: 0 2px 5px lightgray;
-    margin: auto;
     padding: 20px 0;
     color: whitesmoke;
 }

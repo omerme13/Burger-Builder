@@ -1,14 +1,16 @@
 .Burger {
-    width: 100%;
-    margin: auto;
+    flex: 3;
     height: 250px;
+    width: 250px;
     overflow: auto;
     text-align: center;
+    padding-top: 20%;
+    margin: 0 auto;
 }
 
 .Burger p {
     display: block;
-    color: brown;
+    color: #AA6817;
     font-size: 1.2em;
     animation: addIng 0.8s ease-in-out infinite;
 }
@@ -24,17 +26,19 @@
 }
 
 
-@media (min-width: 500px) /*and (min-height: 400px) */{
+@media (min-width: 500px) {
     .Burger {
-        width: 450px;
+        width: 350px;
         height: 400px;
+        padding-top: 10%;
+
     }
 }
 
-@media (min-width: 1000px) /*and (min-height: 700px)*/ {
+@media (min-width: 1000px)  {
     .Burger {
-        width: 700px;
-        height: 600px;
+        width: 600px;
+        height: 500px;
     }
 }
 
